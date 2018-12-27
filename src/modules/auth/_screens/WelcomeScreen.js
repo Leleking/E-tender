@@ -17,7 +17,7 @@ import {AsyncStorage} from 'react-native'
    try{
     const token = await AsyncStorage.getItem('access_token');
     //console.warn(token)
-    if(token){
+    if(!token){
       this.props.navigation.navigate('LoginScreen')
     }
    }catch(e){

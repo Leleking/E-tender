@@ -4,14 +4,14 @@ import {RegisterForm} from '../_components/index'
  class RegisterScreen extends Component {
   render() {
     return (
-        <ScrollView>
+    <ScrollView>
         <View style={styles.container}>
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.innerContainer}>
                     <RegisterForm navigation={this.props.navigation} />
                 </View>
-        </TouchableWithoutFeedback>
-    </View>
+            </TouchableWithoutFeedback>
+        </View>
     </ScrollView>
     )
   }
@@ -20,7 +20,6 @@ const styles = {
     container: {
         flex: 1,
         backgroundColor: '#FFF',
-        //marginTop: 45,
     },
     innerContainer: {
         flex: 1,

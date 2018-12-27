@@ -1,4 +1,5 @@
 import {axios} from '../../../services'
+import {Facebook} from 'expo'
 export default {
     authenticate(credentials) {
 		const user = {
