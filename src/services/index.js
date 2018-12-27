@@ -12,7 +12,7 @@ export const axios = Axios.create({
 
 // Intercept each request and set the bearer token for user
 axios.interceptors.request.use( async config => {
-	let apiToken = await AsyncStorage.getItem('api_token');
+	let apiToken = await AsyncStorage.getItem('access_token');
 
 	if (apiToken && !config.headers.common.Authorization) {
 		config.headers.common.Authorization = `Bearer ${apiToken}`;

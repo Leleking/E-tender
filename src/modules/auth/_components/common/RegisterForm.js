@@ -1,15 +1,13 @@
 import React,{Component} from 'react'
 import {View,Text,TouchableWithoutFeedback,StyleSheet } from 'react-native'
-import {CardButton} from '../../_components'
 import { connect } from 'react-redux'
 import {emailChanged,passwordChanged,renderLogin} from '../../_store/authAction'
 import {Container,Form,Item,Input,Label,Content,Button,Spinner} from 'native-base'
 import { Ionicons } from '@expo/vector-icons';
-class LoginForm extends Component{
+class RegisterForm extends Component{
     state = {
         email:''
     }
-   
      renderLogin = () => {
         const {email,password} = this.props
         this.props.renderLogin({email,password})
@@ -31,6 +29,10 @@ class LoginForm extends Component{
                        <Label><Ionicons name="md-key"  size={20} color="teal" />   Password</Label>
                        <Input value={this.props.password} onChangeText={password=>{this.props.passwordChanged(password)}} secureTextEntry />
                    </Item>
+                   <Item stackedLabel last>
+                       <Label><Ionicons name="md-key"  size={20} color="teal" /> Confirm Password</Label>
+                       <Input value={this.props.password} onChangeText={password=>{this.props.passwordChanged(password)}} secureTextEntry />
+                   </Item>
                    
                    <Button onPress={()=>{this.renderLogin()}} style={{backgroundColor:'teal'}}>
                   {
@@ -39,7 +41,7 @@ class LoginForm extends Component{
                             <Spinner/>
                           </View>    
                   :   <View style={{flex: 1,flexDirection: 'row',justifyContent:'center'}}>
-                        <Ionicons name="md-log-in" size={20} color="white" /><Text style={{paddingLeft:5,color:'white'}}>LOGIN</Text>
+                        <Text style={{paddingLeft:5,color:'white'}}>REGISTER</Text>
                       </View>    
                   }            
                 </Button>
@@ -47,11 +49,24 @@ class LoginForm extends Component{
                   
                 </Form>
                 
-            </Content>
-            <Content>
+                  <Text style={{alignSelf:'center', marginTop:52}}>Or register with</Text>
                   <TouchableWithoutFeedback>
                       <View style={styles.bottomText}>
-                          <Text>I don't have an account yet, create one</Text>
+                      <Button onPress={()=>{this.renderLogin()}} style={{backgroundColor:'#3b5998'}}>
+                 
+                     <View style={{flex: 1,flexDirection: 'row',justifyContent:'center'}}>
+                        <Text style={{paddingLeft:5,color:'white'}}><Ionicons name="logo-facebook" size={20}/> Facebook</Text>
+                      </View>    
+                        
+                </Button>
+                <Text></Text>
+                      <Button onPress={()=>{this.renderLogin()}} style={{backgroundColor:'#DB4437'}}>
+                 
+                     <View style={{flex: 1,flexDirection: 'row',justifyContent:'center'}}>
+                        <Text style={{paddingLeft:5,color:'white'}}><Ionicons name="logo-google" size={20}/> Google</Text>
+                      </View>    
+                        
+                </Button>
                       </View>
                   </TouchableWithoutFeedback>
                
@@ -77,13 +92,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     bottomText:{
-        marginTop:200,
+        marginTop:100,
         alignSelf: 'center',
         justifyContent:'center'
     },
     logoStyle:{
         alignSelf:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        marginTop:20
     }
 
 });
@@ -93,4 +109,4 @@ const mapStateToProps = ({auth}) => {
         email,password,error,loading
     }
 }
-export default connect(mapStateToProps,{emailChanged,passwordChanged,renderLogin})(LoginForm)
+export default connect(mapStateToProps,{emailChanged,passwordChanged,renderLogin})(RegisterForm)

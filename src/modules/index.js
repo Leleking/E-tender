@@ -1,3 +1,5 @@
 export authReducer from './auth/_store/authReducer'
 export * from './auth/_screens/WelcomeScreen'
 export * from './auth/_screens/LoginScreen'
+export * from './main/_screens/ProjectScreen'
+export * from './auth/_screens/RegisterScreen'

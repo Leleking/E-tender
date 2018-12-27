@@ -20,9 +20,9 @@ import {Container,Card,CardItem,Button,Content} from 'native-base'
       <Card  style={styles.textContainer}>
           <CardItem style={styles.cardItemStyle}>
               <View>
-                <Text style={{color:'white'}}>
+               
                   {this.props.text}
-                </Text>
+                
               </View>
           </CardItem>
       </Card>

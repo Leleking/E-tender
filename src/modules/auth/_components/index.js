@@ -1,6 +1,3 @@
 import LoginForm from './common/LoginForm'
-export * from './common/CardButton'
-
-export {
-    LoginForm
-}
+import RegisterForm from './common/RegisterForm'
+export {LoginForm,RegisterForm}

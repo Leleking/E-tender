@@ -1,15 +1,53 @@
 import React from 'react'
-import {WelcomeScreen,LoginScreen} from '../modules'
-import {createStackNavigator,createAppContainer} from 'react-navigation'
+import {Text} from 'react-native'
+import {WelcomeScreen,LoginScreen,ProjectScreen,RegisterScreen} from '../modules'
+import {createStackNavigator, createAppContainer,createBottomTabNavigator,TabNavigator} from 'react-navigation'
 
 const AppNavigator = createStackNavigator({
     Home:{
         screen:WelcomeScreen
     },
-    LoginScreen
+    LoginScreen,
+    RegisterScreen,
+    Main: createBottomTabNavigator({
+       
+        Project: {
+            screen: createStackNavigator({
+                ProjectScreen: {
+                    screen: ProjectScreen,
+                    navigationOptions:()=>({
+                        headerStyle:{
+                            backgroundColor:'teal',
+                            
+                            //textAlign:'center'
+                            
+                        },
+                        headerTintColor:'#fff',
+                    })
+                },
+                WelcomScreen: {
+                    screen: WelcomeScreen,
+                    navigationOptions: ({navigation}) => ({
+                        title: "test",
+                        headerTitle: "test 2"
+                    })
+                }
+            }, {
+                headerMode: 'screen',
+                //navigationOptions: bottomStackNavigationOptions('Chat')
+            }),
+      //navigationOptions: bottomScreenNavigationOptions('Chat', Entypo, 'chat')
+        },
+        
+    }),
+    
+    
 },{
+    headerMode:'none',
     //initialRouteName:'LoginScreen',
     defaultNavigationOptions:{
+        
+        //mode:'modal',
         headerStyle:{
             backgroundColor:'teal',
             
@@ -17,7 +55,7 @@ const AppNavigator = createStackNavigator({
         headerTintColor:'#fff',
     },
     navigationOptions: {
-        tabBarLabel: 'Home!',
+        headerMode:'float',
       },
 })
 

@@ -14,7 +14,7 @@ class LoginScreen extends Component{
     }
     render(){
         return(
-        <View style={{flex:1}}>
+        <View style={styles.container}>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                     <View style={styles.innerContainer}>
                         <LoginForm navigation={this.props.navigation} />
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FFF',
+        marginTop: 45,
     },
     innerContainer: {
         flex: 1,
