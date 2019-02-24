@@ -12,14 +12,18 @@
     "@expo/vector-icons": "^8.0.0",
     "axios": "^0.18.0",
     "expo": "^30.0.1",
+    "lottie-react-native": "^2.5.11",
+    "moment": "^2.24.0",
     "native-base": "^2.8.1",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react-native-app-intro-slider": "^1.0.1",
     "react-native-router-flux": "^4.0.6",
     "react-navigation": "^3.0.8",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "validate.js": "^0.12.0"
   }
 }

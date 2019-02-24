@@ -2,16 +2,12 @@ import React,{Component} from 'react'
 import {View,TouchableWithoutFeedback,KeyboardAvoidingView,ScrollView,StyleSheet,Keyboard} from 'react-native'
 import {LoginForm} from '../_components/index'
 class LoginScreen extends Component{
+   
     static navigationOptions = {
         title: 'Login',
       };
+   
     
-    state = {
-        email:''
-    }
-    onEmailChange = () => {
-
-    }
     render(){
         return(
         <View style={styles.container}>

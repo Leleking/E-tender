@@ -1,62 +1,161 @@
 import React from 'react'
-import {Text} from 'react-native'
-import {WelcomeScreen,LoginScreen,ProjectScreen,RegisterScreen} from '../modules'
-import {createStackNavigator, createAppContainer,createBottomTabNavigator,TabNavigator} from 'react-navigation'
+import Colors from '../constants/Colors'
+import {
+    WelcomeScreen,
+    LoginScreen,
+    SettingsScreen,
+    UserBidScreen,
+    ProjectScreen,
+    ProjectDetailScreen,
+    RegisterScreen,
+    AuthLoadingScreen,
+    IntroSlider,
+    AccountScreen,
+    BidScreen
+} from '../modules'
+import {createStackNavigator, createAppContainer,createBottomTabNavigator,createSwitchNavigator} from 'react-navigation'
+import {Ionicons}from '@expo/vector-icons'
 
-const AppNavigator = createStackNavigator({
+const AppStack = createStackNavigator({
     Home:{
         screen:WelcomeScreen
     },
-    LoginScreen,
+    LoginScreen:{
+        screen:LoginScreen
+    },
+    Intro:{
+        screen:IntroSlider
+    },
     RegisterScreen,
     Main: createBottomTabNavigator({
-       
-        Project: {
+        Projects: {
             screen: createStackNavigator({
                 ProjectScreen: {
                     screen: ProjectScreen,
                     navigationOptions:()=>({
                         headerStyle:{
-                            backgroundColor:'teal',
-                            
-                            //textAlign:'center'
-                            
+                            backgroundColor:'white',
+                            height: 60,
                         },
-                        headerTintColor:'#fff',
+                        headerTitleStyle: {flex: 1, textAlign: 'center'}
+                        
                     })
                 },
-                WelcomScreen: {
-                    screen: WelcomeScreen,
-                    navigationOptions: ({navigation}) => ({
-                        title: "test",
-                        headerTitle: "test 2"
-                    })
-                }
+                ProjectDetail:{
+                    screen:ProjectDetailScreen
+                },
+                Bid:{
+                    screen:BidScreen,
+
+                },
+                
+
             }, {
-                headerMode: 'screen',
-                //navigationOptions: bottomStackNavigationOptions('Chat')
+                headerMode: 'none',
             }),
-      //navigationOptions: bottomScreenNavigationOptions('Chat', Entypo, 'chat')
+            navigationOptions: () =>({
+                tabBarIcon: () => <Ionicons name="ios-business" size={24} color={Colors.primary} />,
+
+            })
         },
         
+        UserBidsScreen:{
+            screen: UserBidScreen,
+            navigationOptions: ({navigation}) => ({
+                title: "My Bids",
+                tabBarIcon: () => <Ionicons name="md-folder" size={24} color={Colors.primary} />
+
+            })
+        },
+        ExploreScreen:{
+            screen: SettingsScreen,
+            navigationOptions: ({navigation}) => ({
+                title: "Explore",
+                tabBarIcon: () => <Ionicons name="ios-search" size={24} color={Colors.primary} />
+
+            })
+        },
+        SettingsScreen:{
+            screen: SettingsScreen,
+            navigationOptions: ({navigation}) => ({
+                title: "Settings",
+                tabBarIcon: () => <Ionicons name="md-settings" size={24} color={Colors.primary} />
+
+            })
+        },
+        
+        AccountScreen:{
+            screen:AccountScreen,
+            navigationOptions: ({navigation}) => ({
+                title: "Account",
+                tabBarIcon: () => <Ionicons name="md-person" size={24} color={Colors.primary} />,
+
+            })
+
+        },
+        
+       
+        
+    },{
+        tabBarOptions:{
+            activeTintColor:Colors.primary,
+            inactiveTintColor:'grey',
+            style:{
+                backgroundColor:'white',
+                borderTopWidth: 0,
+                shadowOffset:{width:5,height:3},
+                shadowColor:'black',
+                shadowOpacity:0.5,
+                elevation:5
+            }
+        },
     }),
     
     
 },{
+    
     headerMode:'none',
-    //initialRouteName:'LoginScreen',
+    initialRouteName:'Main',
     defaultNavigationOptions:{
         
         //mode:'modal',
         headerStyle:{
-            backgroundColor:'teal',
+            backgroundColor:'white',
             
         },
-        headerTintColor:'#fff',
+        headerTintColor:'black',
     },
+    
     navigationOptions: {
         headerMode:'float',
       },
 })
-
-export  const AppContainer = createAppContainer(AppNavigator)
+const AuthStack = createStackNavigator({
+    WelcomeScreen,
+    LoginScreen,
+    RegisterScreen
+},{
+        headerMode:'none',
+        defaultNavigationOptions:{
+        
+            //mode:'modal',
+            headerStyle:{
+                backgroundColor:'white',
+                
+            },
+            headerTintColor:'black',
+        },
+        navigationOptions: {
+            headerMode:'float',
+          },
+})
+export const AppContainer = createAppContainer(createSwitchNavigator(
+    {
+      AuthLoading: AuthLoadingScreen,
+      App: AppStack,
+      Auth: AuthStack,
+    },
+    {
+      initialRouteName: 'AuthLoading',
+    }
+  ));

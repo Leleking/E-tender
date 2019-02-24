@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "lesson4",
+    "name": "tender",
     "description": "This project is really great.",
     "slug": "lesson4",
     "privacy": "public",
@@ -10,7 +10,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": ".",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
