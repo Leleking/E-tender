@@ -11,7 +11,12 @@ import {
     AuthLoadingScreen,
     IntroSlider,
     AccountScreen,
-    BidScreen
+    BidScreen,
+    ProjectCategoryScreen,
+    NotificationScreen,
+    TermsScreen,
+    PrivacyScreen,
+    SearchScreen
 } from '../modules'
 import {createStackNavigator, createAppContainer,createBottomTabNavigator,createSwitchNavigator} from 'react-navigation'
 import {Ionicons}from '@expo/vector-icons'
@@ -44,6 +49,9 @@ const AppStack = createStackNavigator({
                 ProjectDetail:{
                     screen:ProjectDetailScreen
                 },
+                ProjectCategory:{
+                    screen:ProjectCategoryScreen
+                },
                 Bid:{
                     screen:BidScreen,
 
@@ -67,16 +75,29 @@ const AppStack = createStackNavigator({
 
             })
         },
-        ExploreScreen:{
-            screen: SettingsScreen,
+        Search:{
+            screen: SearchScreen,
             navigationOptions: ({navigation}) => ({
-                title: "Explore",
-                tabBarIcon: () => <Ionicons name="ios-search" size={24} color={Colors.primary} />
-
+                title: "Search",
+                tabBarIcon: () => <Ionicons name="md-search" size={24} color={Colors.primary} />
             })
+
         },
         SettingsScreen:{
-            screen: SettingsScreen,
+            screen: createStackNavigator({
+                Settings:{
+                    screen:SettingsScreen,
+                },
+                Terms:{
+                    screen:TermsScreen
+                },
+                Privacy:{
+                    screen:PrivacyScreen
+                },
+                Notification:{
+                    screen:NotificationScreen
+                }
+            }),
             navigationOptions: ({navigation}) => ({
                 title: "Settings",
                 tabBarIcon: () => <Ionicons name="md-settings" size={24} color={Colors.primary} />

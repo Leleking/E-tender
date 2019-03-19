@@ -12,7 +12,7 @@ class SettingList extends Component {
   render() {
     return (
       <View>
-        <ListItem>
+        <ListItem onPress={this.props.onPress}>
           <View style={{flex:1,flexDirection:'row'}}>
             <View style={{width:'90%'}}>
               <Text style={{fontWeight:'bold',fontSize:14}}>{this.props.title}</Text>

@@ -23,17 +23,17 @@ class ProjectScreen extends Component {
         <View style={{flex:1}}>
           <View style={{height:80,backgroundColor:'white',borderBottomWidth:1,borderBottomColor:'#fff'}}>
             <View style={{flexDirection:'row',
-                  padding:10,backgroundColor:'white',
+                  padding:10,backgroundColor:'white',borderRadius:5,
                   marginHorizontal:20,shadowOffset:{width:0,height:0},
                   shadowColor:'black',shadowOpacity:0.2,elevation:1,
                   marginTop:Platform.OS == 'android'  ? 30:20}}>
-              <LogoTitle size={20} />
               <TextInput
                   underlineColorAndroid="transparent"
                   placeholder=" Search for tenders"
                   placeholderTextColor="grey"
                   style={{flex:1,fontWeight:'700',backgroundColor:'white'}}
               />
+              <LogoTitle color="grey" size={18} />
             </View>
           </View>
           <ScrollView scrollEventThrottle={16}>
@@ -43,9 +43,9 @@ class ProjectScreen extends Component {
                 </Text>
                 <View style={{height:130,marginTop:20}}>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                        <Category imageUrl={require('../../../../assets/img/landing.gif')} name="Construction"/>
-                        <Category imageUrl={require('../../../../assets/img/food.gif')} name="Goods and Services"/>
-                        <Category imageUrl={require('../../../../assets/img/developer-dribbble.gif')} name="IT"/>
+                        <Category imageUrl={require('../../../../assets/img/landing.gif')} name="Construction" navigate={this.props.navigation}/>
+                        <Category imageUrl={require('../../../../assets/img/food.gif')} name="Goods and Services" navigate={this.props.navigation}/>
+                        <Category imageUrl={require('../../../../assets/img/developer-dribbble.gif')} name="IT" navigate={this.props.navigation}/>
                     </ScrollView>
                 </View>
                 <View style={{marginTop:40,paddingHorizontal:20}}>

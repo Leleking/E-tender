@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text ,AsyncStorage,ScrollView} from 'react-native';
+import { View, Text ,AsyncStorage,ScrollView,TouchableWithoutFeedback} from 'react-native';
 import { Container, Header, Content,ListItem, Separator } from 'native-base';
 import SettingListProfile from '../_component/SettingListProfile'
 import {SettingList} from '../_component'
 class SettingsScreen extends Component {
+  static navigationOptions = {
+    header: null
+  }
   constructor(props) {
     super(props);
+    
     this.state = {
     };
     //this.props.navigation.navigate("Account")
@@ -20,6 +24,7 @@ class SettingsScreen extends Component {
   }
 
   render() {
+    const {navigate} = this.props.navigation
     return (
       <ScrollView>
         <Container>
@@ -30,7 +35,7 @@ class SettingsScreen extends Component {
             <Separator bordered>
               <Text></Text>
             </Separator>
-            <SettingList title="Notifications">
+            <SettingList onPress={() => {navigate('Notification')}} title="Notifications">
               Here is what is going on today!
             </SettingList>
             <Separator bordered>
@@ -42,10 +47,10 @@ class SettingsScreen extends Component {
             <Separator bordered>
               <Text>Other</Text>
             </Separator>
-            <SettingList title="Privacy Policy">
+            <SettingList onPress={() => {navigate('Privacy')}} title="Privacy Policy">
               Opens our privacy policy
             </SettingList>
-            <SettingList title="Terms and Conditions">
+            <SettingList onPress={() => {navigate('Terms')}} title="Terms and Conditions">
               Opens our terms and conditinos page
             </SettingList>
             <SettingList title="App Version">

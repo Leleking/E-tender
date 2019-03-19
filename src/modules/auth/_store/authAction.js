@@ -3,6 +3,7 @@ import Auth from './AuthServices'
 import {AsyncStorage} from 'react-native'
 import {NavigationActions} from 'react-navigation'
 import { Facebook } from 'expo'
+import {Toast} from 'native-base'
 export const emailChanged = payload => {
     return{
         type:EMAIL_CHANGED,
@@ -34,7 +35,14 @@ export const renderLogin = credentials => async dispatch =>{
     
     }catch(err){
         dispatch({type:LOGIN_FAIL})
-        alert("Login Failed")
+        Toast.show({
+            text: `${err.response.data.message}`,
+            buttonText: 'Okay',
+            duration: 5000,
+            type:'danger',
+            buttonTextStyle: { color: "#008000" },
+            buttonStyle: { backgroundColor: "#2c3e50" }
+          }) 
     }
 }
 export const facebookLogin = () => async dispatch =>{

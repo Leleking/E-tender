@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 });
 
 const slides = [
-    {
+    /* {
       key: 'somethun',
       //title: 'Title 1',
       text: 'Description.\nSay something cool',
@@ -32,7 +32,7 @@ const slides = [
       textAlign: 'center',
       //backgroundColor: '#59b2ab',
       //textStyle
-    },
+    }, */
     {
       key: 'somethun-dos',
       title: 'Title 2',

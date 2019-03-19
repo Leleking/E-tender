@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View ,ScrollView,Platform,SafeAreaView} from 'react-native'
+import { Text, View ,ScrollView,Platform,SafeAreaView,ActivityIndicator} from 'react-native'
 import MainServices from '../../_store/MainServices'
-import {Button,Card,CardItem,Body} from 'native-base'
+import {Button,Card,CardItem,Body,Container,Content} from 'native-base'
 import { Ionicons } from '@expo/vector-icons';
+
+
 
 export default class ProjectDetail extends Component {
     constructor(props) {
@@ -42,15 +44,18 @@ export default class ProjectDetail extends Component {
     
     render()
      {
-        const {project,project_detail,extra} = this.state
+        const {project,project_detail,extra,isFetching} = this.state
         return (
-            <View>
-               <View>
-                    <ScrollView>
-                        <View style={{marginHorizontal:20,marginTop:Platform.OS == 'android'  ? 30:20}}>
-                            <Card>
-                            <CardItem header>
-                                    <Text style={{alignItems: 'center',justifyContent:'center'}}> {project.name}</Text>
+               <Container style={{flex:1}}>
+               {
+                   (isFetching)? (
+                    <ActivityIndicator size={"large"}/>
+                   )  : ( 
+                   <Content>
+                       <ScrollView>
+                       <Card>
+                                <CardItem header style={{flex:1,alignItems: 'center',justifyContent:'center',backgroundColor:'#2c3e50',borderRadius:5,paddingTop:20,paddingBottom:20,marginTop:30}}>
+                                    <Text style={{fontSize:20,color:'white'}}> {project.name}</Text>
                                 </CardItem>
                                 <CardItem header>
                                 <Ionicons name="ios-pin" size={20} color="black" />
@@ -88,24 +93,26 @@ export default class ProjectDetail extends Component {
                                         </Text>
                                     </Body>
                                 </CardItem>
-                                <CardItem footer>
+                                <CardItem>
                                     <Text>{project.end_date}</Text>
                                 </CardItem>
+                                <CardItem style={{alignItems: 'center',justifyContent:'center'}} footer>
+                                    <Button  danger full onPress={ () => {this.props.navigation.navigate('Bid',{params:project.id})}}>
+                                        <View style={{paddingRight:50,paddingLeft:50}}>
+                                            <Ionicons name="ios-pricetags" size={20} color="white" />
+                                            <Text style={styles.bidTextStyle}> Bid</Text>
+                                        </View>
+                                    </Button>
+                                </CardItem>
+                                
                             </Card>
-                        </View>
-                        
-                        <View style={{
-                            paddingHorizontal:20,shadowOffset:{width:0,height:0},
-                            shadowColor:'black',shadowOpacity:0.2,elevation:5,
-                        }}>
-                            <Button rounded danger full onPress={ () => {this.props.navigation.navigate('Bid',{params:project.id})}}>
-                                <Ionicons name="ios-pricetags" size={20} color="white" />
-                                <Text style={styles.bidTextStyle}> Bid</Text>
-                            </Button>
-                        </View>
-                    </ScrollView>
-               </View>
-            </View>
+                       </ScrollView>
+                            
+                    
+                   </Content>
+                   )
+               }
+               </Container>
         )
     }
 }

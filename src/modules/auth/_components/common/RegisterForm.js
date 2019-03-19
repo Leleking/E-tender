@@ -1,9 +1,10 @@
 import React,{Component} from 'react'
-import {View,Text,TouchableWithoutFeedback,StyleSheet } from 'react-native'
+import {View,Text,TouchableWithoutFeedback,StyleSheet,ScrollView} from 'react-native'
 import { connect } from 'react-redux'
 import {emailChanged,passwordChanged,renderLogin,facebookLogin} from '../../_store/authAction'
 import {Container,Form,Item,Input,Label,Content,Button,Spinner} from 'native-base'
 import { Ionicons } from '@expo/vector-icons';
+import Colors from '../../../../constants/Colors'
 class RegisterForm extends Component{
     state = {
         email:''
@@ -13,15 +14,38 @@ class RegisterForm extends Component{
         this.props.renderLogin({email,password})
 
     }
+    componentWillMount(){
+
+    }
     render(){
         return(
         //<KeyboardAvoidingView enabled style={styles.container} behavior="padding">
-        <Container style={styles.container}>
+        <ScrollView style={styles.container}>
             <Content>
-                <View style={styles.logoStyle}><Ionicons name="md-cube" size={60} color="teal" /></View>
+                <View style={styles.logoStyle}><Ionicons name="md-cube" size={60} color={Colors.primary} /></View>
                 <Form style={{paddingTop:30}}>
+                    <Item stackedLabel>
+                       <Label><Ionicons name="md-contact" size={20} color={Colors.primary} />  Name</Label>
+                       <Input value={this.props.email} onChangeText={email=>{this.props.emailChanged(email)}}/>
+                   </Item>
                    <Item stackedLabel>
-                       <Label><Ionicons name="md-person" size={20} color="teal" />   Email</Label>
+                       <Label><Ionicons name="md-business" size={20} color={Colors.primary} />   Company Name</Label>
+                       <Input value={this.props.email} onChangeText={email=>{this.props.emailChanged(email)}}/>
+                   </Item>
+                   <Item stackedLabel>
+                       <Label><Ionicons name="md-build" size={20} color={Colors.primary} />   Industry</Label>
+                       <Input value={this.props.email} onChangeText={email=>{this.props.emailChanged(email)}}/>
+                   </Item>
+                   <Item stackedLabel>
+                       <Label><Ionicons name="md-globe" size={20} color={Colors.primary} />   Country</Label>
+                       <Input value={this.props.email} onChangeText={email=>{this.props.emailChanged(email)}}/>
+                   </Item>
+                   <Item stackedLabel>
+                       <Label><Ionicons name="md-call" size={20} color={Colors.primary} />   Phone</Label>
+                       <Input value={this.props.email} onChangeText={email=>{this.props.emailChanged(email)}}/>
+                   </Item>
+                   <Item stackedLabel>
+                       <Label><Ionicons name="md-at" size={20} color={Colors.primary} />   Email</Label>
                        <Input value={this.props.email} onChangeText={email=>{this.props.emailChanged(email)}}/>
                    </Item>
                    <Item stackedLabel last>
@@ -45,7 +69,7 @@ class RegisterForm extends Component{
                   }            
                 </Button>
                 </Form>
-                <Text style={{alignSelf:'center', marginTop:52}}>Or register with</Text>
+                {/* <Text style={{alignSelf:'center', marginTop:52}}>Or register with</Text>
                 <TouchableWithoutFeedback>
                     <View style={styles.bottomText}>
                         <Button onPress={()=>{this.props.facebookLogin()}} style={{backgroundColor:'#3b5998'}}>
@@ -60,9 +84,9 @@ class RegisterForm extends Component{
                             </View>    
                         </Button>
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback> */}
             </Content>
-        </Container>
+        </ScrollView>
       
         )
     }
@@ -70,11 +94,11 @@ class RegisterForm extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        //paddingTop: ,
-    
+        paddingTop:10,
        paddingLeft:20,
        paddingRight:20,
-      backgroundColor:'white'
+      backgroundColor:'white',
+      paddingBottom:10
     },
     innerContainer: {
         flex: 1,

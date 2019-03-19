@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {View,Text,TouchableWithoutFeedback,StyleSheet,AsyncStorage } from 'react-native'
+import {View,Text,TouchableWithoutFeedback,StyleSheet,AsyncStorage,Keyboard } from 'react-native'
 import {CardButton} from '../../_components'
 import { connect } from 'react-redux'
 import {emailChanged,passwordChanged,renderLogin,loadingOff} from '../../_store/authAction'
@@ -16,6 +16,7 @@ class LoginForm extends Component{
     }
     
      renderLogin = () => {
+        Keyboard.dismiss()
         const {email,password} = this.props
         this.props.renderLogin({email,password})
 
