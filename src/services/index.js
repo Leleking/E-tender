@@ -6,7 +6,8 @@ export const axios = Axios.create({
 	baseURL: API_DOMAIN,
 
 	headers: {
-		'X-Requested-With': 'XMLHttpRequest'
+		'X-Requested-With': 'XMLHttpRequest',
+		
 	}
 });
 

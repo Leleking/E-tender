@@ -49,7 +49,9 @@ export default class ProjectDetail extends Component {
                <Container style={{flex:1}}>
                {
                    (isFetching)? (
-                    <ActivityIndicator size={"large"}/>
+                    <View style={styles.loadingStyle}>
+                        <ActivityIndicator size={"large"}/>
+                    </View>
                    )  : ( 
                    <Content>
                        <ScrollView>
@@ -119,5 +121,10 @@ export default class ProjectDetail extends Component {
 const styles = {
     bidTextStyle:{
         color:"white"
+    },
+    loadingStyle:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
     }
 }

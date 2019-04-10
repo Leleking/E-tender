@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
-import { Text, Image,View,Platform,SafeAreaView,TextInput,StatusBar,ScrollView} from 'react-native'
+import { Text, RefreshControl,View,Platform,SafeAreaView,TextInput,StatusBar,ScrollView} from 'react-native'
 import {LogoTitle} from '../../../component'
 //import {Container,Content,Tabs,Tab} from 'native-base'
 //import {Ionicons} from '@expo/vector-icons'
 import MainServices from '../_store/MainServices'
 import {Category,NewProjects} from '../_component/'
 class ProjectScreen extends Component {
-  /* static navigationOptions = {
-    headerLeft:Platform.OS ==='ios'? <View></View> : <View style={{width: 100}}></View>,
-    headerTitle: <LogoTitle size={40} color="white"/>,
-    headerTitleStyle: {flex: 1, textAlign: 'center'},
-  }; */
+  constructor(props){
+    super(props)
+    this.state = {
+      refreshing:false,
+    }
+  }
+  _onRefresh = () => {
+    this.setState({
+      refreshing:true
+    })
+  }
   componentWillMount(){
     this.startHeaderHeight =  80
     if(Platform.OS == 'android'){
@@ -36,7 +42,15 @@ class ProjectScreen extends Component {
               <LogoTitle color="grey" size={18} />
             </View>
           </View>
-          <ScrollView scrollEventThrottle={16}>
+          <ScrollView
+           scrollEventThrottle={16}
+           /* refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            /> 
+          }*/
+           >
             <View style={{flex:1,backgroundColor:'white',paddingTop:20}}>
                 <Text style={{fontSize:24,fontWeight:'700',paddingHorizontal:20}}>
                   What can we help you find
@@ -61,22 +75,7 @@ class ProjectScreen extends Component {
           </ScrollView>
         </View>
       </SafeAreaView>
-     /*  <View style={styles.container}>
-
-         
-           <Tabs  tabBarUnderlineStyle={{backgroundColor:'teal'}}>
-            <Tab heading="All"  activeTextStyle={styles.tabStyle}>
-                <AllProjects/>
-            </Tab>
-            <Tab heading="New" activeTextStyle={styles.tabStyle}>
-                <NewProjects navigate={this.props.navigation}/>
-            </Tab>
-            <Tab heading="Recommended" activeTextStyle={styles.tabStyle}>
-                <View><Text>recommended</Text></View>
-            </Tab>
-           
-        </Tabs> 
-      </View> */
+     
     )
   }
 }
