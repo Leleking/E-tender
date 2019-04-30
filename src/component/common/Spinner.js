@@ -12,7 +12,7 @@ class Spinner extends Component {
   render() {
     return (
       <View style={styles.spinnerStyle}>
-          <ActivityIndicator size={this.props.size || 'large'}/>
+          <ActivityIndicator size={this.props.size || 'large'} color={this.props.color || 'blue'}/>
       </View>
     );
   }

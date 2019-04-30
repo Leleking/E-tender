@@ -3,16 +3,46 @@ import { Text, View,SafeAreaView,Platform,TextInput,Image,ScrollView,Dimensions,
 import {Button,Separator,ListItem,Header,Left,Body,Title,Right} from 'native-base'
 import {FadeInView} from '../../../../component'
 import { Ionicons } from '@expo/vector-icons';
+import { DangerZone } from 'expo';
+import {ProjectList} from '../../../../component'
+import MainServices from '../../_store/MainServices'
 class Search extends Component {  
   constructor(props) {
     super(props)
       this.state = {
         active: false,
         modalVisible: false,
+        searchState:false,
+        searchFound:false,
+        search:"",
+        projects:{}
       };
     }
     setModalVisible(visible) {
       this.setState({modalVisible: visible});
+    }
+    handleKeyDown = async () => {
+
+      if(this.state.search == ""){
+        alert("Search filled is empty")
+      }else{
+        const data = {
+          name:this.state.search
+        }
+        this.setState({searchState:true})
+        let result = await MainServices.searchProject(data)
+        this.setState({searchState:false})        
+        let projects = result.data.data;
+        if(Object.keys(projects).length == 0){
+          this.setState({searchFound:false})
+          alert("No tender found")
+          
+        }else{
+          this.setState({projects,searchFound:true})
+        }
+
+        
+      }
     }
   render() {
 
@@ -35,19 +65,20 @@ class Search extends Component {
                 placeholder=" Search for tenders"
                 placeholderTextColor="grey"
                 style={{flex:1,fontWeight:'700',backgroundColor:'white'}}
+                onChangeText={(search)=>{this.setState({search})}}
+                returnKeyType="done"
+                onSubmitEditing={this.handleKeyDown}
             />
             <Ionicons name="ios-search" color="grey" size={18} />
           </View>
         </View>
-
-
         <ScrollView style={{flex:1}} scrollEventThrottle={16}>
           <FadeInView style={{flex:1,backgroundColor:'white'}}>
               <View style={{marginTop:40,paddingHorizontal:20}}>
                 <View style={styles.cardItemStyle}>
                   <View style={{width: '70%', height: 30}}>
                     <Text style={{fontSize:24,fontWeight:'700'}}>
-                      Latest Projects in PPA
+                      Latest Projects in E-tender
                     </Text>
                   </View>
                   <View>
@@ -81,6 +112,37 @@ class Search extends Component {
                   />
                 </View>
               </View>
+              <View style={{marginTop:35,marginRight:40,marginLeft:40,height: 30,borderRadius:100,backgroundColor:'#B92A68',justifyContent:'center',alignItems:'center'}}>
+                <Text style={{color:'white'}}>
+                    <Ionicons name="ios-business" color="white" size={20} />
+                      {" "}Search Results
+                </Text>
+              </View>
+              {
+                this.state.searchState ?
+                 (
+                  <View style={{alignItems:'center',justifyContent:'center'}}>
+                    <Image source={require('../../../../../assets/img/search.gif')} style={{width:200,height:200}}/>
+                  </View>
+                 ) 
+                 : 
+                 (
+                   this.state.searchFound
+                    ? 
+                    (
+                      <View style={{flex:1}}>
+                        <ProjectList projects={this.state.projects} navigation={this.props.navigation}/>
+                      </View>
+                    ) 
+                    : 
+                    (
+                      <View style={{alignItems:'center',justifyContent:'center'}}>
+                        <Image source={require('../../../../../assets/img/animat-search-color.gif')} style={{width:200,height:200}}/>
+                        <Text style={{color:'#B92A68'}}>Search is empty</Text>
+                      </View>
+                    )
+                 )
+              }
           </FadeInView>
          
           

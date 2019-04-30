@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text ,AsyncStorage,ScrollView,TouchableWithoutFeedback} from 'react-native';
+import { View, Text ,AsyncStorage,ScrollView,TouchableWithoutFeedback,Alert} from 'react-native';
 import { Container, Header, Content,ListItem, Separator } from 'native-base';
 import SettingListProfile from '../_component/SettingListProfile'
 import {SettingList} from '../_component'
@@ -21,6 +21,17 @@ class SettingsScreen extends Component {
     await AsyncStorage.clear()
    this.props.navigation.navigate('Auth')
     
+  }
+  viewAppVersion = () => {
+    Alert.alert(
+      'Version 1.0.1 (build 80)',
+      'E-tender is a registered trademark of Elinixs Technology Limited',
+      [
+        
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      {cancelable: false},
+    );
   }
 
   render() {
@@ -53,7 +64,7 @@ class SettingsScreen extends Component {
             <SettingList onPress={() => {navigate('Terms')}} title="Terms and Conditions">
               Opens our terms and conditinos page
             </SettingList>
-            <SettingList title="App Version">
+            <SettingList title="App Version" onPress={()=>{this.viewAppVersion()}}>
               1.0.1(build 1)
             </SettingList>
             <ListItem onPress={()=>{this._logoutAsync()}} last>

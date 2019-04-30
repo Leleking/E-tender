@@ -23,5 +23,12 @@ export default {
                     .then(response => Promise.resolve(response))
                     .catch(error =>Promise.reject(error)
         )
+    },
+    searchProject(payload){
+        let url = "api/project/search"
+        return axios.post(url,payload)
+        .then(response => Promise.resolve(response))
+        .catch(error =>Promise.reject(error))
+
     }
 }

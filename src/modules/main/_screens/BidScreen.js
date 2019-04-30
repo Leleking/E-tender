@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View ,WebView,Platform,TouchableWithoutFeedback,ScrollView,Keyboard,KeyboardAvoidingView} from 'react-native'
-import {Card,CardItem,Input,Form,Item,Label,Button,CheckBox} from 'native-base'
+import { Text, View ,Platform,TouchableWithoutFeedback,ScrollView,Keyboard,KeyboardAvoidingView} from 'react-native'
+import {Card,CardItem,Input,Form,Item,Label,Button,Toast} from 'native-base'
 import {Ionicons} from '@expo/vector-icons'
 import Colors from '../../../constants/Colors'
 import {FileInput} from '../../../component'
 import { DocumentPicker,ImagePicker, } from 'expo';
 import {axios} from '../../../services'
+import {Spinner} from '../../../component'
+import MainServices from '../../main/_store/MainServices'
 
 class BidScreen extends Component {
     constructor(props) {
@@ -15,11 +17,19 @@ class BidScreen extends Component {
     state = {
         experience:"",
         price:"",
+        project_id:0,
         warranty:"",
         business:{},
         vat:{},
         tax:{},
-        cv:{}
+        cv:{},
+        check:{
+          business:false,
+          tax:false,
+          vat:false,
+          cv:false
+        },
+        loading:false
     }
     getBusiness= async () => {
       let result = await ImagePicker.launchImageLibraryAsync()
@@ -35,15 +45,10 @@ class BidScreen extends Component {
       let type = match ? `image/${match[1]}` : `image`;
       let data = { uri: localUri, name: filename, type }
       this.setState({business:data})
-      /* let formData = new FormData();
-      formData.append('photo', { uri: localUri, name: filename, type });
-      formData.append('name',"simeon")
-      axios.post('api/postMedia',formData, {
-        header: {
-          'content-type': 'multipart/form-data',
-        
-        },
-      }).then((res) => console.warn(res)).catch((err) => console.warn(err)); */
+      this.setState({check:{
+        ...this.state.check,
+        business:true
+      }})
     }
     getVat = async () => {
       let result = await ImagePicker.launchImageLibraryAsync()
@@ -59,6 +64,10 @@ class BidScreen extends Component {
       let type = match ? `image/${match[1]}` : `image`;
       let data = { uri: localUri, name: filename, type }
       this.setState({vat:data})
+      this.setState({check:{
+        ...this.state.check,
+        vat:true
+      }})
     }
     getTax = async () => {
       let result = await ImagePicker.launchImageLibraryAsync()
@@ -74,21 +83,44 @@ class BidScreen extends Component {
       let type = match ? `image/${match[1]}` : `image`;
       let data = { uri: localUri, name: filename, type }
       this.setState({tax:data})
+      this.setState({check:{
+        ...this.state.check,
+        tax:true
+      }})
     }
     uploadBid = () => {
       const {experience,price,warranty,business,vat,tax,cv} = this.state
       if(!experience || !price || warranty ){
-        alert("a field is empty")
+        Toast.show({
+          text: "One or more of t fields is empty",
+          buttonText: 'Okay',
+          duration: 5000,
+          type:'danger',
+          buttonTextStyle: { color: "#008000" },
+          buttonStyle: { backgroundColor: "#2c3e50" }
+        }) 
       }else{
+      this.setState({loading:true})
       let formData = new FormData();
-      formData.append('photo', { uri: localUri, name: filename, type });
-      formData.append('name',"simeon")
+      formData.append('business', this.state.business);
+      formData.append('vat', this.state.vat);
+      formData.append('tax', this.state.tax);
+      //formData.append('cv', this.state.cv);
+      formData.append('experience',this.state.experience)
+      formData.append('price',this.state.price)
+      formData.append('project_id',this.props.navigation.getParam('id'))
+      //formData.append('warranty',this.state.warranty)
+      
       axios.post('api/postMedia',formData, {
         header: {
           'content-type': 'multipart/form-data',
         
         },
-      }).then((res) => console.warn(res)).catch((err) => console.warn(err)); 
+      }).then((res) => {
+        this.setState({loading:false})
+        console.warn(res)
+      })
+      .catch((err) => console.warn(err)); 
       }
     }
   render() {
@@ -121,13 +153,17 @@ class BidScreen extends Component {
                     <Label><Ionicons name="md-analytics" size={20} color={Colors.primary} /> Warranty</Label>
                     <Input onChangeText={(warranty) => {this.setState({warranty})}} />
                 </Item>
-                <FileInput icon="ios-image" onPress={() => {alert()}} name="Business Registry Certificate" />
-                <FileInput icon="ios-image" onPress={() => {alert()}} name="Vat Registry Certificate" color="blue" checked={false} />
-                <FileInput icon="ios-image" onPress={() => {alert()}} name="Tax Registry Certificate" color="grey" checked={false} />
-                <FileInput icon="ios-document" onPress={() => {alert()}} name="CV" color="yellow" checked={true} />
+                <FileInput icon="ios-image" onPress={() => {this.getBusiness()}} name="Business Registry Certificate" color="#2c3e50" checked={this.state.check.business} />
+                <FileInput icon="ios-image" onPress={() => {this.getVat()}} name="Vat Registry Certificate" color="#2c3e50" checked={this.state.check.vat} />
+                <FileInput icon="ios-image" onPress={() => {this.getTax()}} name="Tax Registry Certificate" color="#2c3e50" checked={this.state.check.tax} />
+                <FileInput icon="ios-document" onPress={() => {alert()}} name="CV" color="#2c3e50" checked={true} />
                 <Item style={{paddingTop:10}} stackedLabel>
-                  <Button full danger rounded onPress={() => {this.uploadBid()}}>
-                    <Text style={{color:'white'}}>Submit</Text>
+                  <Button full style={{backgroundColor:"#2c503e"}} rounded onPress={() => {this.uploadBid()}}>
+                    {
+                      this.state.loading ?
+                      <Spinner color="white"/> :
+                      <Text style={{color:'white'}}>Submit</Text>
+                    }
                   </Button>
                 </Item> 
           </Form>

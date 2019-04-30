@@ -8,6 +8,9 @@ import {Button} from 'native-base'
     this.state = {
     };
   }
+  getUserBids(){
+    
+  }
 
   render() {
     return (
@@ -19,7 +22,7 @@ import {Button} from 'native-base'
         </View>
 
         <View>
-            <Button rounded  bordered style={styles.button}>
+            <Button rounded  bordered style={styles.button} onPress={() => {this.props.navigation.navigate("Search")}}>
                 <Text>Explore Projects</Text>
             </Button>
         </View>

@@ -4,13 +4,12 @@ import {List,ListItem,H3} from 'native-base'
 class ProjectList extends Component {
     constructor(props){
         super(props)
-        console.warn(props)
+        
     }
   render() {
       const {projects,navigation} = this.props
     return (
         <View style={{flex:1}}>
-            <Text>This is workign</Text>
             <List dataArray={projects}
                     renderRow={(project) =>
                         <ListItem button onPress={()=>{navigation.navigate('ProjectDetail',{id:project.id})}}>

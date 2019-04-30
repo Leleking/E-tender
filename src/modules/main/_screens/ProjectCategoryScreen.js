@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View,ActivityIndicator} from 'react-native'
 import MainServices from '../_store/MainServices'
+import {Card, CardItem, Body } from 'native-base'
 import {ProjectList} from '../../../component'
 class ProjectCategoryScreen extends Component {
     constructor(props){
@@ -32,7 +33,6 @@ class ProjectCategoryScreen extends Component {
             console.warn(this.state) */
 
         } catch (err) {
-            console.warn(err)
             alert("No internect connection or slow network")
         }
     }
@@ -40,7 +40,12 @@ class ProjectCategoryScreen extends Component {
 
   render() {
     return (
-      <View style={{flex:1,backgroundColor:'grey'}}>
+      <View style={{flex:1}}>
+       <Card>
+       <CardItem header style={{flex:1,alignItems: 'center',justifyContent:'center',backgroundColor:'#2c3e50',borderRadius:5,paddingTop:20,paddingBottom:20,marginTop:30}}>
+            <Text style={{fontSize:20,color:'white'}}> {this.props.navigation.getParam('category')}</Text>
+        </CardItem>
+       </Card>
           {
               this.state.isFetching ?
               (<ActivityIndicator size={"large"}/>) :

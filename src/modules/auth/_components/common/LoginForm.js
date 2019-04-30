@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {View,Text,TouchableWithoutFeedback,StyleSheet,AsyncStorage,Keyboard } from 'react-native'
+import {View,Text,TouchableWithoutFeedback,StyleSheet,AsyncStorage,Keyboard,Image} from 'react-native'
 import {CardButton} from '../../_components'
 import { connect } from 'react-redux'
 import {emailChanged,passwordChanged,renderLogin,loadingOff} from '../../_store/authAction'
@@ -44,8 +44,8 @@ class LoginForm extends Component{
         <Container style={styles.container}>
             <Content>
                 <View style={styles.logoStyle}>
-                    <Ionicons name="md-cube" size={60} color={Colors.primary} />
-                    <Text style={{fontSize:20,fontWeight: 'bold',color:"#B9A085"}}> Public Procument Authority</Text>
+                    <Image source={require('../../../../../assets/logo.png')} style={{width:50,height:60}}/>
+                    <Text style={{fontSize:20,fontWeight: 'bold',color:Colors.primary}}> Vector</Text>
                 </View>
                 <Form style={{paddingTop:30}}>
                    <Item stackedLabel>
@@ -73,7 +73,7 @@ class LoginForm extends Component{
                 </Form>
                 
            
-                  <TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback onPress={() => {this.props.navigation.navigate('RegisterScreen')}}>
                       <View style={styles.bottomText}>
                           <Text>I don't have an account yet, create one</Text>
                       </View>
@@ -90,7 +90,8 @@ class LoginForm extends Component{
 const styles = StyleSheet.create({
     container: {
         //paddingTop: ,
-    
+        alignItems:'center',
+        justifyContent:'center',
        paddingLeft:20,
        paddingRight:20,
       backgroundColor:'white'

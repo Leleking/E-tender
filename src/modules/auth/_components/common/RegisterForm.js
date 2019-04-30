@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {View,Text,TouchableWithoutFeedback,StyleSheet,ScrollView} from 'react-native'
+import {View,Text,TouchableWithoutFeedback,StyleSheet,ScrollView,Image} from 'react-native'
 import { connect } from 'react-redux'
 import {emailChanged,passwordChanged,renderLogin,facebookLogin} from '../../_store/authAction'
 import {Container,Form,Item,Input,Label,Content,Button,Spinner} from 'native-base'
@@ -22,7 +22,10 @@ class RegisterForm extends Component{
         //<KeyboardAvoidingView enabled style={styles.container} behavior="padding">
         <ScrollView style={styles.container}>
             <Content>
-                <View style={styles.logoStyle}><Ionicons name="md-cube" size={60} color={Colors.primary} /></View>
+                <View style={styles.logoStyle}>
+            <Image source={require('../../../../../assets/logo.png')} style={{width:55,height:60}}/>
+                
+                </View>
                 <Form style={{paddingTop:30}}>
                     <Item stackedLabel>
                        <Label><Ionicons name="md-contact" size={20} color={Colors.primary} />  Name</Label>

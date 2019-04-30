@@ -37,7 +37,7 @@ export default class ProjectDetail extends Component {
             //console.warn(objData.data.project_detail)
 
         } catch (err) {
-            console.warn(err)
+            console.log(err)
             alert("No internect connection or slow network")
         }
     }
@@ -99,7 +99,7 @@ export default class ProjectDetail extends Component {
                                     <Text>{project.end_date}</Text>
                                 </CardItem>
                                 <CardItem style={{alignItems: 'center',justifyContent:'center'}} footer>
-                                    <Button  danger full onPress={ () => {this.props.navigation.navigate('Bid',{params:project.id})}}>
+                                    <Button  danger full onPress={ () => {this.props.navigation.navigate('Bid',{id:project.id})}}>
                                         <View style={{paddingRight:50,paddingLeft:50}}>
                                             <Ionicons name="ios-pricetags" size={20} color="white" />
                                             <Text style={styles.bidTextStyle}> Bid</Text>
