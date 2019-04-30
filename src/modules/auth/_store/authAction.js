@@ -28,7 +28,11 @@ export const renderLogin = credentials => async dispatch =>{
         const user = await Auth.authenticate(credentials)
         if (user) {
            await AsyncStorage.setItem('access_token', JSON.stringify(user.data.access_token));
-           await AsyncStorage.setItem('user',JSON.stringify(user.data));
+           if(user.data.access_token){
+                const objData = await Auth.getUser()
+                await AsyncStorage.setItem('user',JSON.stringify(objData.data));
+                
+           }
             dispatch({type: LOGIN_SUCCESS, payload: user});
             dispatch(NavigationActions.navigate('RegisterScreen'))
         }

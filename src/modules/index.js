@@ -1,4 +1,5 @@
 import AccountScreen from './account/_screens/AccountScreen'
+import registerReducer from './auth/_store/registerReducer';
 export authReducer from './auth/_store/authReducer'
 export * from './auth/_screens/WelcomeScreen'
 export * from './auth/_screens/LoginScreen'
@@ -16,4 +17,5 @@ export * from './settings/_screens/PrivacyScreen'
 export * from './settings/_screens/ProfileScreen'
 export * from './settings/_screens/TermsScreen'
 export * from './main/_screens/SearchScreen'
-export  {AccountScreen}
+export * from './main/_screens/ThankYouScreen'
+export  {AccountScreen,registerReducer}

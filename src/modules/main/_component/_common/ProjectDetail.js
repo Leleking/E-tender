@@ -99,7 +99,7 @@ export default class ProjectDetail extends Component {
                                     <Text>{project.end_date}</Text>
                                 </CardItem>
                                 <CardItem style={{alignItems: 'center',justifyContent:'center'}} footer>
-                                    <Button  danger full onPress={ () => {this.props.navigation.navigate('Bid',{id:project.id})}}>
+                                    <Button  danger block onPress={ () => {this.props.navigation.navigate('Bid',{id:project.id})}}>
                                         <View style={{paddingRight:50,paddingLeft:50}}>
                                             <Ionicons name="ios-pricetags" size={20} color="white" />
                                             <Text style={styles.bidTextStyle}> Bid</Text>
@@ -126,5 +126,5 @@ const styles = {
         flex:1,
         alignItems:'center',
         justifyContent:'center'
-    }
+    },
 }

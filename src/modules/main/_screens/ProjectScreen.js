@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { Text, RefreshControl,View,Platform,SafeAreaView,TextInput,StatusBar,ScrollView} from 'react-native'
+import { Text, RefreshControl,View,Platform,SafeAreaView,TextInput,StatusBar,ScrollView,Image} from 'react-native'
 import {LogoTitle} from '../../../component'
-//import {Container,Content,Tabs,Tab} from 'native-base'
-//import {Ionicons} from '@expo/vector-icons'
 import MainServices from '../_store/MainServices'
 import {Category,NewProjects} from '../_component/'
+import Colors from '../../../constants/Colors'
 class ProjectScreen extends Component {
   constructor(props){
     super(props)
@@ -63,11 +62,13 @@ class ProjectScreen extends Component {
                     </ScrollView>
                 </View>
                 <View style={{marginTop:40,paddingHorizontal:20}}>
-                  <Text style={{fontSize:24,fontWeight:'700'}}>
-                    Latest Projects in PPA
-                  </Text>
-                  <Text style={{fontWeight:'100',marginTop:10}}>PPA maintains a database of common items for the use of government...</Text>
+                  <View style={styles.logoStyle}>
+                      <Image source={require('../../../../assets/logo.png')} style={{width:50,height:60}}/>
+                      <Text style={{fontSize:20,fontWeight: 'bold',color:Colors.primary}}> Lastest projects in Vector</Text>
+                  </View>
+                  <Text style={{fontWeight:'100',marginTop:10}}>Vector maintains a database of common items for the use of government...</Text>
                   <View>
+                    
                     <NewProjects navigate={this.props.navigation}/>
                   </View>
                 </View>
@@ -75,7 +76,7 @@ class ProjectScreen extends Component {
           </ScrollView>
         </View>
       </SafeAreaView>
-     
+    
     )
   }
 }
@@ -85,6 +86,16 @@ const styles ={
   },
   tabStyle:{
     color: Platform.OS ==='ios' ? 'teal':'white',
-    fontWeight: 'normal'}
+    fontWeight: 'normal'
+  },
+  logoStyle:{
+    
+    paddingTop:20,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+}
+    
 }
 export  {ProjectScreen}

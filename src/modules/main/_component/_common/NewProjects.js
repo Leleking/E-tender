@@ -10,7 +10,8 @@ export default class NewProjects extends Component {
     super(props);
     this.state = {
       projects:{},
-      isFetching:true
+      isFetching:true,
+      connection:true
     };
     this._getProjects()
   }
@@ -39,7 +40,7 @@ export default class NewProjects extends Component {
       for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
       }
-      return color;
+      return "#404154";
   }
   
   render() {
@@ -47,7 +48,8 @@ export default class NewProjects extends Component {
     const {navigate} = this.props.navigate
     return (
       <View style={styles.container}>
-         
+              
+            
               {this.state.isFetching ? 
                (<ActivityIndicator size={"large"}/>) :
                 (<List dataArray={this.state.projects}

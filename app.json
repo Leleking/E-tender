@@ -11,10 +11,14 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/logo.png",
-      "resizeMode": "contain",
       "backgroundColor": "#ffffff",
-      "mdpi": "./assets/logo.png", 
+      "ldpi": "./assets/logo.png",
+      "mdpi": "./assets/logo.png",
       "hdpi": "./assets/logo.png",
+      "xhdpi": "./assets/logo.png",
+      "xxhdpi": "./assets/logo.png",
+      "xxxhdpi": "./assets/logo.png",
+      "resizeMode": "contain"
       
     },
     "updates": {

@@ -16,7 +16,8 @@ import {
     NotificationScreen,
     TermsScreen,
     PrivacyScreen,
-    SearchScreen
+    SearchScreen,
+    ThankYouScreen
 } from '../modules'
 import {createStackNavigator, createAppContainer,createBottomTabNavigator,createSwitchNavigator} from 'react-navigation'
 import {Ionicons}from '@expo/vector-icons'
@@ -56,6 +57,9 @@ const AppStack = createStackNavigator({
                     screen:BidScreen,
 
                 },
+                ThankYou:{
+                    screen:ThankYouScreen
+                }
                 
 
             }, {

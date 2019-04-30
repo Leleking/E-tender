@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View ,Platform,TouchableWithoutFeedback,ScrollView,Keyboard,KeyboardAvoidingView} from 'react-native'
+import { Text, View ,Platform,TouchableWithoutFeedback,ScrollView,Keyboard,KeyboardAvoidingView,AsyncStorage} from 'react-native'
 import {Card,CardItem,Input,Form,Item,Label,Button,Toast} from 'native-base'
 import {Ionicons} from '@expo/vector-icons'
 import Colors from '../../../constants/Colors'
@@ -12,9 +12,16 @@ import MainServices from '../../main/_store/MainServices'
 class BidScreen extends Component {
     constructor(props) {
         super(props);
-
+        this.getUserId()
+      }
+      getUserId = async () => {
+        let user = await AsyncStorage.getItem('user');
+        user = JSON.parse(user)
+        this.setState({user_id:user.id})
+        this.props.navigation.navigate('ThankYou')
       }
     state = {
+        user_id:0,
         experience:"",
         price:"",
         project_id:0,
@@ -105,6 +112,7 @@ class BidScreen extends Component {
       formData.append('business', this.state.business);
       formData.append('vat', this.state.vat);
       formData.append('tax', this.state.tax);
+      formData.append('user_id', this.state.user_id);
       //formData.append('cv', this.state.cv);
       formData.append('experience',this.state.experience)
       formData.append('price',this.state.price)
@@ -118,7 +126,7 @@ class BidScreen extends Component {
         },
       }).then((res) => {
         this.setState({loading:false})
-        console.warn(res)
+        
       })
       .catch((err) => console.warn(err)); 
       }

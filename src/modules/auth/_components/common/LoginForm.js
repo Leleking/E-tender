@@ -18,7 +18,11 @@ class LoginForm extends Component{
      renderLogin = () => {
         Keyboard.dismiss()
         const {email,password} = this.props
-        this.props.renderLogin({email,password})
+        if(!email || !password){
+            alert("email or password field is empty")
+        }else{
+            this.props.renderLogin({email,password})
+        }
 
     }
     componentDidUpdate = async () => {
