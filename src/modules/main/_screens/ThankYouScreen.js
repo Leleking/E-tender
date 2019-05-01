@@ -12,7 +12,7 @@ import {Button} from 'native-base'
           <Text>Congratulations, your bid has been successfully placed.</Text>
         </View>
         <View style={{paddingTop:50}}>
-          <Button full rounded danger>
+          <Button full rounded danger onPress={() => {this.props.navigation.navigate('UserBids')}}>
             <Text style={{paddingLeft:100,paddingRight:100,color:"white"}}>
               Open my bids
             </Text>

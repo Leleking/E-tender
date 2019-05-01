@@ -18,7 +18,7 @@ class BidScreen extends Component {
         let user = await AsyncStorage.getItem('user');
         user = JSON.parse(user)
         this.setState({user_id:user.id})
-        this.props.navigation.navigate('ThankYou')
+        
       }
     state = {
         user_id:0,
@@ -166,7 +166,7 @@ class BidScreen extends Component {
                 <FileInput icon="ios-image" onPress={() => {this.getTax()}} name="Tax Registry Certificate" color="#2c3e50" checked={this.state.check.tax} />
                 <FileInput icon="ios-document" onPress={() => {alert()}} name="CV" color="#2c3e50" checked={true} />
                 <Item style={{paddingTop:10}} stackedLabel>
-                  <Button full style={{backgroundColor:"#2c503e"}} rounded onPress={() => {this.uploadBid()}}>
+                  <Button full danger rounded onPress={() => {this.uploadBid()}}>
                     {
                       this.state.loading ?
                       <Spinner color="white"/> :

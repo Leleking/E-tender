@@ -24,6 +24,13 @@ export default {
                     .catch(error =>Promise.reject(error)
         )
     },
+    getUserBids(){
+        let url = "api/user/bids"
+        return axios.get(url)
+                    .then(response => Promise.resolve(response))
+                    .catch(error =>Promise.reject(error)
+        )
+    },
     searchProject(payload){
         let url = "api/project/search"
         return axios.post(url,payload)

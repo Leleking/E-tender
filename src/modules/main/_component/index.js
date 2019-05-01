@@ -5,4 +5,7 @@ import Category from './_common/Category'
 import Search from './_common/Search'
 import SearchIntro from './_common/SearchIntro'
 import SearchSideBar from './_common/SearchSideBar'
-export {AllProjects,NewProjects,ProjectDetail,Category,Search,SearchIntro,SearchSideBar}
+import AllBids from './_common/AllBids'
+import OngoingProjects from './_common/OngoingProjects'
+import CompletedProjects from './_common/CompletedProjects'
+export {AllProjects,NewProjects,ProjectDetail,Category,Search,SearchIntro,SearchSideBar,AllBids,OngoingProjects,CompletedProjects}

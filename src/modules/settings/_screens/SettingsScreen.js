@@ -25,7 +25,7 @@ class SettingsScreen extends Component {
   viewAppVersion = () => {
     Alert.alert(
       'Version 1.0.1 (build 80)',
-      'E-tender is a registered trademark of Elinixs Technology Limited',
+      'Vector is a registered trademark of Elinixs Technology Limited',
       [
         
         {text: 'OK', onPress: () => console.log('OK Pressed')},
@@ -42,7 +42,7 @@ class SettingsScreen extends Component {
           <Header style={{backgroundColor:'white'}} />
           <Content>
             
-            <SettingListProfile/>
+            
             <Separator bordered>
               <Text></Text>
             </Separator>

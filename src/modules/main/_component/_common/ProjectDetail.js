@@ -13,7 +13,8 @@ export default class ProjectDetail extends Component {
             project: {},
             project_detail:{},
             extra:{},
-            isFetching: true
+            isFetching: true,
+            isNew:true
         }
         //props.navigation.navigate('Auth')
         //console.log(props.navigation)
@@ -33,6 +34,9 @@ export default class ProjectDetail extends Component {
             let objData = await MainServices.getProjectDetail(id)
             let project = objData.data.data;
             let project_detail = objData.data.project_detail
+            if(objData.data.new == false){
+                this.setState({isNew:false})
+            }
             this.setState({ project,project_detail,extra:objData.data.project_detail.data, isFetching: false })
             //console.warn(objData.data.project_detail)
 
@@ -77,7 +81,7 @@ export default class ProjectDetail extends Component {
                                 </CardItem>
                                 <CardItem>
                                     <Ionicons name="ios-card" size={20} color="black" />
-                                    <Text style={{paddingLeft:10}}> Budget : {project.currency}{project.budget}</Text>
+                                    <Text style={{paddingLeft:10}}> Budget : null</Text>
                                 </CardItem>
                                 
                                
@@ -98,14 +102,26 @@ export default class ProjectDetail extends Component {
                                 <CardItem>
                                     <Text>{project.end_date}</Text>
                                 </CardItem>
-                                <CardItem style={{alignItems: 'center',justifyContent:'center'}} footer>
-                                    <Button  danger block onPress={ () => {this.props.navigation.navigate('Bid',{id:project.id})}}>
-                                        <View style={{paddingRight:50,paddingLeft:50}}>
-                                            <Ionicons name="ios-pricetags" size={20} color="white" />
-                                            <Text style={styles.bidTextStyle}> Bid</Text>
-                                        </View>
-                                    </Button>
-                                </CardItem>
+                                <View style={{alignItems: 'center',justifyContent:'center'}} footer>
+                                    {
+                                        this.state.isNew ?
+                                        (
+                                            <Button rounded danger block onPress={ () => {this.props.navigation.navigate('Bid',{id:project.id})}}>
+                                                <View style={{paddingRight:50,paddingLeft:50}}>
+                                                    <Text style={styles.bidTextStyle}> Place Your Bid</Text>
+                                                </View>
+                                            </Button>
+                                        )
+                                        :
+                                        (
+                                            <Button  success block>
+                                                <View style={{paddingRight:50,paddingLeft:50}}>
+                                                    <Text style={styles.bidTextStyle}>Bid Already Placed</Text>
+                                                </View>
+                                            </Button>
+                                        )
+                                    }
+                                </View>
                                 
                             </Card>
                        </ScrollView>

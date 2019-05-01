@@ -1,34 +1,33 @@
 import React, { Component } from 'react';
 import { View, Text,Image } from 'react-native';
-import {Button} from 'native-base'
-
+import { Container, Header, Tab, Tabs, TabHeading, Icon,Button } from 'native-base';
+import {AllBids,OngoingProjects,CompletedProjects} from '../_component'
+import Colors from '../../../constants/Colors'
  class UserBidScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-  getUserBids(){
-    
-  }
+  
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={{alignItems:'center'}}>
-            <Text style={{fontWeight:'bold'}}>Explore Now</Text>
-            <Text style={{fontSize:11,color:'grey'}}>Let's help you get your first tender</Text>
-            <Image style={{width:400,height:450}} source={require('../../../../assets/img/Tools_gif.gif')}/>
-        </View>
-
-        <View>
-            <Button rounded  bordered style={styles.button} onPress={() => {this.props.navigation.navigate("Search")}}>
-                <Text>Explore Projects</Text>
-            </Button>
-        </View>
-       
-      </View>
-    );
+      <Container>
+        <Header style={{backgroundColor:Colors.primary}} hasTabs/>
+        <Tabs>
+          <Tab   heading={ <TabHeading style={{backgroundColor:Colors.primary}}><Icon name="ios-business" /><Text style={{color:'white'}}> {' '}All Bids</Text></TabHeading>}>
+            <AllBids navigation={this.props.navigation}/>
+          </Tab>
+          <Tab heading={ <TabHeading style={{backgroundColor:Colors.primary}}><Icon name="ios-alarm" /><Text style={{color:'white'}}> {' '}Work In Progress</Text></TabHeading>}>
+            <OngoingProjects/>
+          </Tab>
+          <Tab heading={ <TabHeading style={{backgroundColor:Colors.primary}}><Icon name="filing" /><Text style={{color:'white'}}> {' '}Completed</Text></TabHeading>}>          
+            <CompletedProjects/>
+          </Tab>
+        </Tabs>
+    </Container>
+    )
   }
 }
 const styles = {

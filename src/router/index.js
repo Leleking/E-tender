@@ -59,6 +59,9 @@ const AppStack = createStackNavigator({
                 },
                 ThankYou:{
                     screen:ThankYouScreen
+                },
+                UserBids:{
+                    screen:UserBidScreen
                 }
                 
 
@@ -100,6 +103,9 @@ const AppStack = createStackNavigator({
                 },
                 Notification:{
                     screen:NotificationScreen
+                },
+                Account:{
+                    screen:AccountScreen
                 }
             }),
             navigationOptions: ({navigation}) => ({

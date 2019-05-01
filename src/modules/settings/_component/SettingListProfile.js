@@ -34,7 +34,7 @@ export default class SettingListProfile extends Component {
                 this.state.isFetching ? (
                     <ActivityIndicator size={"large"}/>
                 ) : (
-                    <ListItem>
+                    <ListItem onPress={this.props.onPress}>
                         <View style={{flex:1,flexDirection:'row'}}>
                             <View style={{width:'20%'}}>
                                 <Ionicons name="ios-contact" size={50}/>
