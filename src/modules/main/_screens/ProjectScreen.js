@@ -4,12 +4,17 @@ import {LogoTitle} from '../../../component'
 import MainServices from '../_store/MainServices'
 import {Category,NewProjects} from '../_component/'
 import Colors from '../../../constants/Colors'
+import {ProjectList} from '../../../component'
 class ProjectScreen extends Component {
   constructor(props){
     super(props)
     this.state = {
       refreshing:false,
+      projects:{},
+      isFetching:true,
+      connection:true
     }
+    this._getProjects()
   }
   _onRefresh = () => {
     this.setState({
@@ -22,6 +27,19 @@ class ProjectScreen extends Component {
       this.startHeaderHeight = 100 + StatusBar.cureentHeight
     }
   }
+  async _getProjects(){
+    try{
+   let objData = await MainServices.getProjects()/* 
+   //Note, getting the data is stored in the object Data
+   in this case, our data is also called data  */
+   let projects = objData.data.data;
+   this.setState({projects,isFetching:false})
+    }catch(err){
+      alert("There seems to be a problem ")
+    }
+  
+   
+ }
   render() {
     return (
       <SafeAreaView style={{flex:1}}>
@@ -68,8 +86,7 @@ class ProjectScreen extends Component {
                   </View>
                   <Text style={{fontWeight:'100',marginTop:10}}>Vector maintains a database of common items for the use of government...</Text>
                   <View>
-                    
-                    <NewProjects navigate={this.props.navigation}/>
+                    <ProjectList navigation={this.props.navigation} projects={this.state.projects}/>
                   </View>
                 </View>
             </View>

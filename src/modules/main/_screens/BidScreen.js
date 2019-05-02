@@ -57,6 +57,26 @@ class BidScreen extends Component {
         business:true
       }})
     }
+    getCV= async () => {
+      let result = await DocumentPicker.getDocumentAsync({});
+    
+      if (result.cancelled) {
+        return;
+      }
+    
+      let localUri = result.uri;
+      let filename = localUri.split('/').pop();
+    
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+      let data = { uri: localUri, name: filename, type }
+      this.setState({cv:data})
+      this.setState({check:{
+        ...this.state.check,
+        cv:true
+      }})
+      console.warn(match)
+    }
     getVat = async () => {
       let result = await ImagePicker.launchImageLibraryAsync()
     
@@ -96,13 +116,14 @@ class BidScreen extends Component {
       }})
     }
     uploadBid = () => {
+      
       const {experience,price,warranty,business,vat,tax,cv} = this.state
       if(!experience || !price || warranty ){
         Toast.show({
           text: "One or more of t fields is empty",
           buttonText: 'Okay',
-          duration: 5000,
-          type:'danger',
+          duration: 3000,
+          type:'dark',
           buttonTextStyle: { color: "#008000" },
           buttonStyle: { backgroundColor: "#2c3e50" }
         }) 
@@ -126,6 +147,7 @@ class BidScreen extends Component {
         },
       }).then((res) => {
         this.setState({loading:false})
+        this.props.navigation.navigate("ThankYou")
         
       })
       .catch((err) => console.warn(err)); 
@@ -164,7 +186,7 @@ class BidScreen extends Component {
                 <FileInput icon="ios-image" onPress={() => {this.getBusiness()}} name="Business Registry Certificate" color="#2c3e50" checked={this.state.check.business} />
                 <FileInput icon="ios-image" onPress={() => {this.getVat()}} name="Vat Registry Certificate" color="#2c3e50" checked={this.state.check.vat} />
                 <FileInput icon="ios-image" onPress={() => {this.getTax()}} name="Tax Registry Certificate" color="#2c3e50" checked={this.state.check.tax} />
-                <FileInput icon="ios-document" onPress={() => {alert()}} name="CV" color="#2c3e50" checked={true} />
+                <FileInput icon="ios-document" onPress={() => {this.getCV()}} name="CV" color="#2c3e50" checked={this.state.check.cv} />
                 <Item style={{paddingTop:10}} stackedLabel>
                   <Button full danger rounded onPress={() => {this.uploadBid()}}>
                     {

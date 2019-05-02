@@ -28,9 +28,8 @@ export default class AllBids extends Component {
                 this.setState({isEmpty:true})
             }else{
                this.setState({isEmpty:false})
-               console.log(projects)
                this.setState({projects})
-                console.log(projects)
+                
             }
         }catch(e){
             console.warn(e)

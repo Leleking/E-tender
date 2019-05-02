@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View ,ScrollView,Platform,SafeAreaView,ActivityIndicator} from 'react-native'
 import MainServices from '../../_store/MainServices'
-import {Button,Card,CardItem,Body,Container,Content} from 'native-base'
+import {Button,Card,CardItem,Body,Container,Content,Icon} from 'native-base'
 import { Ionicons } from '@expo/vector-icons';
-
-
-
+import moment from 'moment'
 export default class ProjectDetail extends Component {
     constructor(props) {
         super(props)
@@ -21,7 +19,9 @@ export default class ProjectDetail extends Component {
 
 
     }
-    
+    getDate(date){
+        return moment(date).format('MMMM Do YYYY');
+    }
     componentWillMount() {
         this._getProjectDetail()
     }
@@ -100,7 +100,7 @@ export default class ProjectDetail extends Component {
                                     </Body>
                                 </CardItem>
                                 <CardItem>
-                                    <Text>{project.end_date}</Text>
+                                    <Text><Icon name="alarm" style={{fontSize:20,color:'#ff4c52'}}/> End Date: {' '}{this.getDate(project.end_date)}</Text>
                                 </CardItem>
                                 <View style={{alignItems: 'center',justifyContent:'center'}} footer>
                                     {

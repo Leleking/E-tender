@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View,Dimensions} from 'react-native'
-import {List,ListItem,H3} from 'native-base'
+import {List,ListItem,H3,Icon} from 'native-base'
+import moment from 'moment'
 class ProjectList extends Component {
     constructor(props){
         super(props)
+       // console.log(moment('01/12/2016', 'DD/MM/YYYY', true).format())
+        
         
     }
     getInitials(string) {
@@ -19,6 +22,12 @@ class ProjectList extends Component {
           color += letters[Math.floor(Math.random() * 16)];
           }
           return "#404154";
+      }
+      getDate(date){
+       return moment(date).format('MMMM Do YYYY');
+      }
+      getDaysLeft(date){
+        return moment(date).endOf('day').fromNow()
       }
       
   render() {
@@ -37,7 +46,8 @@ class ProjectList extends Component {
                                 </View>
                                 <View style={{width:  screenWidth -40, height: 50,marginLeft:10}}>
                                     <H3>{project.name}</H3>
-                                    <Text style={{paddingTop:5,color:'#8E9C8F'}}>{project.budget} {project.currency} , </Text>
+                                    <Text style={{paddingTop:5,color:'#8E9C8F'}}><Icon size={10} style={{color:'#2ECB0F',fontSize:12}} name="clock"/> {this.getDate(project.end_date)} { ' ' } { " " }<Icon size={10} style={{color:'#ff4c52',fontSize:12}} name="alarm"/> {this.getDaysLeft(project.end_date)} </Text>
+                                    
                                 </View>
                             </View>  
                         </ListItem>     

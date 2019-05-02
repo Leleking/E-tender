@@ -4,12 +4,28 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux'
+
 import Colors from '../../../constants/Colors'
 
+
 class AccountScreen extends Component {
+  constructor(props){
+    super(props)
+    this.state ={
+      user:{}
+    }
+  }
+  componentWillMount = async () => {
+    let user = await AsyncStorage.getItem('user');
+    console.log(user)
+    user = JSON.parse(user)
+    this.setState({user:user})
+    
+  }
 
   render() {
     return (
@@ -18,7 +34,7 @@ class AccountScreen extends Component {
           <Image style={styles.avatar} source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
           <View style={styles.body}>
             <View style={styles.bodyContent}>
-              <Text style={styles.name}>John Doe</Text>
+              <Text style={styles.name}>{this.state.user.name}</Text>
               <Text style={styles.info}>UX Designer / Mobile developer</Text>
               <Text style={styles.description}>Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram expetendis, omittam deseruisse consequuntur ius an,</Text>
               
