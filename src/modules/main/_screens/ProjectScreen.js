@@ -12,7 +12,8 @@ class ProjectScreen extends Component {
       refreshing:false,
       projects:{},
       isFetching:true,
-      connection:true
+      connection:true,
+      search:""
     }
     this._getProjects()
   }
@@ -20,6 +21,31 @@ class ProjectScreen extends Component {
     this.setState({
       refreshing:true
     })
+    this._getProjects()
+    this.setState({refreshing:false})
+  }
+  handleKeyDown = async () => {
+
+    if(this.state.search == ""){
+      alert("Search filled is empty")
+    }else{
+      const data = {
+        name:this.state.search
+      }
+      this.setState({searchState:true})
+      let result = await MainServices.searchProject(data)
+      this.setState({searchState:false})        
+      let projects = result.data.data;
+      if(Object.keys(projects).length == 0){
+        this.setState({searchFound:false})
+        alert("No tender found")
+        
+      }else{
+        this.setState({projects,searchFound:true})
+      }
+
+      
+    }
   }
   componentWillMount(){
     this.startHeaderHeight =  80
@@ -55,18 +81,21 @@ class ProjectScreen extends Component {
                   placeholder=" Search for tenders"
                   placeholderTextColor="grey"
                   style={{flex:1,fontWeight:'700',backgroundColor:'white'}}
+                  onChangeText={(search)=>{this.setState({search})}}
+                  returnKeyType="done"
+                  onSubmitEditing={this.handleKeyDown}
               />
               <LogoTitle color="grey" size={18} />
             </View>
           </View>
           <ScrollView
            scrollEventThrottle={16}
-           /* refreshControl={
+           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
               onRefresh={this._onRefresh}
             /> 
-          }*/
+          }
            >
             <View style={{flex:1,backgroundColor:'white',paddingTop:20}}>
                 <Text style={{fontSize:24,fontWeight:'700',paddingHorizontal:20}}>

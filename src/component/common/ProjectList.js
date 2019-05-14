@@ -46,7 +46,10 @@ class ProjectList extends Component {
                                 </View>
                                 <View style={{width:  screenWidth -40, height: 50,marginLeft:10}}>
                                     <H3>{project.name}</H3>
-                                    <Text style={{paddingTop:5,color:'#8E9C8F'}}><Icon size={10} style={{color:'#2ECB0F',fontSize:12}} name="clock"/> {this.getDate(project.end_date)} { ' ' } { " " }<Icon size={10} style={{color:'#ff4c52',fontSize:12}} name="alarm"/> {this.getDaysLeft(project.end_date)} </Text>
+                                    <Text style={{paddingTop:5,color:'#8E9C8F'}}>
+                                      <Icon size={10} style={{color:'#2ECB0F',fontSize:12}} name="clock"/> {this.getDate(project.end_date)} { ' ' } { " " }
+                                      <Icon size={10} style={{color:'#ff4c52',fontSize:12}} name="alarm"/> {this.getDaysLeft(project.end_date)} { ' ' } { " " }
+                                      <Icon size={10} style={{color:'#BD0FCB',fontSize:12}} name="filing"/> {project.total_bids} </Text>
                                     
                                 </View>
                             </View>  

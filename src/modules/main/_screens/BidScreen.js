@@ -63,19 +63,17 @@ class BidScreen extends Component {
       if (result.cancelled) {
         return;
       }
-    
-      let localUri = result.uri;
-      let filename = localUri.split('/').pop();
-    
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
-      let data = { uri: localUri, name: filename, type }
+      const { name , uri } = result
+      const uriParts = name.split('.');
+      const fileType = uriParts[uriParts.length - 1];
+      let data = { uri, name, type:`application/${fileType}`,  }
+      console.log(data)
       this.setState({cv:data})
       this.setState({check:{
         ...this.state.check,
         cv:true
       }})
-      console.warn(match)
+      console.log(this.state.cv)
     }
     getVat = async () => {
       let result = await ImagePicker.launchImageLibraryAsync()
@@ -132,9 +130,9 @@ class BidScreen extends Component {
       let formData = new FormData();
       formData.append('business', this.state.business);
       formData.append('vat', this.state.vat);
+      formData.append('cv',this.state.cv);
       formData.append('tax', this.state.tax);
       formData.append('user_id', this.state.user_id);
-      //formData.append('cv', this.state.cv);
       formData.append('experience',this.state.experience)
       formData.append('price',this.state.price)
       formData.append('project_id',this.props.navigation.getParam('id'))
@@ -142,6 +140,7 @@ class BidScreen extends Component {
       
       axios.post('api/postMedia',formData, {
         header: {
+          Accept: 'application/json',
           'content-type': 'multipart/form-data',
         
         },
